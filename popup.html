@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>Oxide's Quizlet Extension</title>
+	<link href="Ubuntu\Ubuntu" rel="stylesheet">
+	<script src="popup.js"></script>
+	<style>
+		body {
+			font-family: 'Ubuntu', sans-serif;
+			background-color: #fff;
+			overflow-x: hidden;
+			overflow-y: auto;
+			width: 400px;
+			height: 600px;
+			padding: 0;
+			margin: 0;
+		}
+
+		h3 {
+			margin-bottom: 0;
+			color: rgb(69, 83, 88);
+			font-size: 20px;
+			font-weight: 700;
+		}
+
+		button {
+			background-color: #000000;
+			transition: all 0.2s;
+			user-select: none;
+			cursor: pointer;
+			outline: none;
+			border: none;
+			padding: 5px;
+			color: #fff;
+		}
+
+		button:hover {
+			background-color: #ffd400;
+			color: #000;
+		}
+
+		select {
+			outline: none;
+			color: #3ccfcf;
+			transition: all .25s cubic-bezier(0.47,0,0.745,0.715);
+			font-weight: 600;
+			font-size: 14px;
+			border: 1px solid rgb(218, 222, 224);
+			padding: 5px 0 6px 8px;
+			cursor: pointer;
+			width: 100px;
+		}
+		
+		select:hover {
+			color: #ffcd1f;
+		}
+		
+		option {
+			color: rgb(69, 83, 88);
+		}
+		
+		input {
+			height: 12px;
+			outline: none;
+			border: none;
+			border-bottom: 2px solid #455358;
+			background: none;
+			transition: all 120ms;
+			padding: 10px 0 5px 3px;
+			
+		}
+		
+		input:focus {
+			border-bottom: 2px solid rgb(255, 205, 31);
+		}
+		
+		br {
+			user-select: none;
+		}
+		
+		.hidden {
+			display: none;
+		}
+
+		.showing {
+			display: block;
+		}
+
+		.loading {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			animation: loader 1s infinite;
+			box-sizing: border-box;
+			border: 5px solid #000;
+			border-color: #000 transparent transparent transparent;
+			margin-top: -32px;
+		}
+
+		.fade {
+			transition: visibility .5s, opacity .5s;
+			visibility: none;
+			opacity: 0;
+		}
+
+		@keyframes loader {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes shake {
+			0% { transform: translate(1px, 1px) rotate(0deg); }
+			20% { transform: translate(-3px, 0px) rotate(1deg); }
+			40% { transform: translate(1px, -1px) rotate(-1deg); }
+			60% { transform: translate(-3px, 1px) rotate(0deg); }
+			80% { transform: translate(-1px, -1px) rotate(1deg); }
+			100% { transform: translate(1px, -2px) rotate(-1deg); }
+		}
+		
+		.shakingElement {
+			animation: shake .4s; 
+			animation-iteration-count: infinite; 
+		}
+		
+		.container {
+			transition: all 1s;
+			width: 100%;
+			position: absolute;
+			color: #455358;
+		}
+
+		.settings {
+			padding: 0 0 0 5px;
+			z-index: 1;
+		}
+		
+		.settings span {
+			color: rgb(151, 165, 170);
+			font-size: 14px;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+
+		.fly-up {
+			transition: margin-top .5s, transform .5s;
+			margin-top: 0 !important;
+			transform: translateY(-70%);
+		}
+
+		#background {
+			z-index: -1;
+			position: absolute;
+			clip-path: polygon(76% 81%, 100% 53%, 100% 100%, 0% 100%);
+			background: linear-gradient(to bottom, #000000 0%, #d3d3d3 100%);
+			transition: all 1s;
+			height: 100%;
+			width: 100%;
+			bottom: 0;
+		}
+        #btnMods,
+		#btnInject,
+		#btnLive {
+			font-size: 20px;
+			margin-top: 5px;
+			width: 100%;
+		}
+
+		#btnInject {}
+
+		#btnLive {}
+        
+        #btnMods {}
+
+		#info {
+			transition: all 1s;
+			user-select: none;
+			padding: 5px;
+			padding-bottom: 15px;
+			transform: translateY(-80%);
+			background-color: #f0f0f0;
+		}
+
+		#info:hover {
+			transform: translateY(0);
+		}
+
+		#main {
+			transition: all 1s;
+			margin-top: 40%;
+			z-index: 2;
+			top: 0;
+		}
+
+		#advOptions {
+			text-align: center;
+			transition: all 0.3s;
+			cursor: pointer;
+			width: 100%;
+		}
+
+		#advOptions:after {
+			content: " \2B9F";
+			display: inline-block;
+			transition: all 0.3s;
+			transform: rotateZ(-90deg) translateX(-3px);
+		}
+
+		#advOptions:hover:after {
+			transform: translateX(0px);
+		}
+
+		#settings {
+			transition: opacity .5s;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div id="info">
+		Thank you for using this extension! If you have any issues, please give me a mention on Discord. If the extension is not working on a certain Quizlet, please send me a link to the Quizlet that doesn't work.
+	</div>
+	<div class="container showing" id="main">
+        
+        <img src="kqh_logo.png" alt="Main Logo" style="width: 60%; margin: auto;">
+        
+    <hr>
+
+		<button id="btnInject">Inject Scripts</button>
+		<div id="loaderInject" class="loading fade"></div>
+
+		<button id="btnLive">Inject Live</button>
+		<div id="loaderLive" class="loading fade"></div>
+        
+        <a href="mods.html"><button id="btnMods">Mods</button></a>
+		<div id="loaderMods" class="loading fade"></div>
+
+		<!--<input placeholder="Quizlet Live Join Code..." type="text" maxlength="6" value="" style="width: 100%; text-align: center;">-->
+		<div id="joinCodeContainer" style="width: 40%; margin: auto;">
+			<input><input><input><span style="user-select: none; margin: 5px;">—</span><input><input><input>
+		</div>
+		
+		<div class="settingsContainer">
+			<h2 id="advOptions">Advanced Options</h2>
+		</div>
+	</div>
+	<div class="settings fade" id="settings">
+		<h3 style="margin: 0;">Live</h3>
+		<span>Auto-Answer </span><select id="liveAutoAnswer" select>
+			<option value="0" >Off</option>
+			<option value="1" selected="selected">On</option>
+		</select><br> 
+		
+		<span>Auto-Answer Delay (ms)</span><input value="0" placeholder="100" id="liveAnswerDelay"><br><br>
+		
+		<span>Display Answer </span><select id="liveDisplayAnswers">
+			<option value="0">Off</option>
+			<option value="1" selected="selected">On</option>
+		</select><br>
+		
+		<span>Toggle Answers Key </span><input value="c" placeholder="c" id="liveToggleAnswersKey"><br>
+
+		<h3>Match</h3>
+		<span>Default Time </span><input value="0.5" placeholder="0.5" id="matchTime"><br>
+
+		<h3>Gravity</h3>
+		<span>Default Score </span><input value="4294967295" placeholder="4294967295" id="gravityScore"><br>
+
+		<h3>Test</h3>
+		<span>Toggle Answers Key </span><input value="c" placeholder="c" id="testToggleAnswersKey"><br>
+
+		<h3>Learn</h3>
+		<span>Speed (ms) </span><input value="500" placeholder="500" id="learnSpeed"><br>
+	</div>
+	<div class="background" id="background"></div>
+
+</body>
+
+</html>

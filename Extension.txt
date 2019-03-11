@@ -1,0 +1,51 @@
+*************************************
+
+Quizlet Exploit Extension
+Version: 5.5
+
++ Fixed Learn
++ Improved Test Mode
++ Huge Update
++ Greatly Improved Quizlet Live
+
+*************************************
+
+NOTE: Right click the icon and click "Reset Settings" to restore settings to the most reliable options. 
+It is impossible to achieve a score under 0.5 seconds on match, but you are able to specify a lower time. 
+YOUR SCORE WILL NOT SAVE ON MATCH IF IT IS UNDER 0.5 SECONDS! 
+
+By clicking "Inject" while on match / gravity you will gain the best score INSTANTLY. 
+
+By using this free extension, you will be able to beat ANY Quizlet mode with no effort. Beat all the competition for FREE with with this new Quizlet hack. This is the first and only free Quizlet hack that works on every single game mode. All you have to do is click this Quizlet Extension icon after downloading. 
+
+LIVE: Double click the icon while on Quizlet live to view the menu! The answer will be automatically clicked if you have it, if you don't have it, the answer will be shown next to your team's name.
+
+GRAVITY: All you have to do is type a score. After you have done that, our script injects a spoofed score on top of the current one, allowing us to get any score we want. 
+You can set your score to ANYTHING except for negative numbers or decimals.
+
+MATCH: The timer will be stopped at 0.5 seconds and the correct tiles will be color coded. You will get a score of 0.5 seconds.
+
+MICRO-MATCH: Similar to Match, except the tiles will all be solved automatically. You will get a score of 0.5 seconds.
+
+LEARN: Completes learn for you automatically. 
+
+SPELL: Nothing to do, the answers will be inputted automatically.
+
+TEST: The correct answer will be toggled when you press 'C' (or the key specified in the settings), allowing you to show and hide the answers whenever you want. The answer will be show under every question.
+
+WRITE: Write will be completed almost instantly upon execution.
+
+COMING SOON:
++ Anything you ask (:
+
+When you have download this extension, navigate to `https://quizlet.com/` and click this extension's icon at the top right corner. Once clicked, please wait for the popup to load and click the inject button.
+
+MESSAGE: This extension is for educational purposes only! We are not responsible for anything you do with this extension!
+
+IMPORTANT: If you notice any errors / bugs, please leave a support ticket stating the game mode, what you did to get the error, and if possible, screen shots / evidence. All your help is greatly appreciated and helps me know what you want. 
+
+TERMS OF SERVICE: Use this extension with responsibly. I am not responsible for anything you do!
+
+PRIVACY POLICY: This extension will never save, collect, or do anything else with your data. Use this extension however at your own risk, however you might be banned if a staff member notices you with an impossible score.
+
+SOURCE: Now open source! View our code at https://github.com/SnowLord7/quizlet

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8>
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>Oxide's Quizlet Exploit</title>
+	<link href="Ubuntu\Ubuntu" rel="stylesheet">
+	<script src="popup.js"></script>
+	<style>
+		body {
+			font-family: 'Ubuntu', sans-serif;
+			background-color: #fff;
+			overflow-x: hidden;
+			overflow-y: auto;
+			width: 400px;
+			height: 600px;
+			padding: 0;
+			margin: 0;
+		}
+
+		h3 {
+			margin-bottom: 0;
+			color: rgb(69, 83, 88);
+			font-size: 20px;
+			font-weight: 700;
+		}
+
+		button {
+			background-color: #000000;
+			transition: all 0.2s;
+			user-select: none;
+			cursor: pointer;
+			outline: none;
+			border: none;
+			padding: 5px;
+			color: #fff;
+		}
+
+		button:hover {
+			background-color: #ffd400;
+			color: #000;
+		}
+
+		select {
+			outline: none;
+			color: #3ccfcf;
+			transition: all .25s cubic-bezier(0.47,0,0.745,0.715);
+			font-weight: 600;
+			font-size: 14px;
+			border: 1px solid rgb(218, 222, 224);
+			padding: 5px 0 6px 8px;
+			cursor: pointer;
+			width: 100px;
+		}
+		
+		select:hover {
+			color: #ffcd1f;
+		}
+		
+		option {
+			color: rgb(69, 83, 88);
+		}
+		
+		input {
+			height: 12px;
+			outline: none;
+			border: none;
+			border-bottom: 2px solid #455358;
+			background: none;
+			transition: all 120ms;
+			padding: 10px 0 5px 3px;
+			
+		}
+		
+		input:focus {
+			border-bottom: 2px solid rgb(255, 205, 31);
+		}
+		
+		br {
+			user-select: none;
+		}
+		
+		.hidden {
+			display: none;
+		}
+
+		.showing {
+			display: block;
+		}
+
+		.loading {
+			position: absolute;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			animation: loader 1s infinite;
+			box-sizing: border-box;
+			border: 5px solid #000;
+			border-color: #000 transparent transparent transparent;
+			margin-top: -32px;
+		}
+
+		.fade {
+			transition: visibility .5s, opacity .5s;
+			visibility: none;
+			opacity: 0;
+		}
+
+		@keyframes loader {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes shake {
+			0% { transform: translate(1px, 1px) rotate(0deg); }
+			20% { transform: translate(-3px, 0px) rotate(1deg); }
+			40% { transform: translate(1px, -1px) rotate(-1deg); }
+			60% { transform: translate(-3px, 1px) rotate(0deg); }
+			80% { transform: translate(-1px, -1px) rotate(1deg); }
+			100% { transform: translate(1px, -2px) rotate(-1deg); }
+		}
+		
+		.shakingElement {
+			animation: shake .4s; 
+			animation-iteration-count: infinite; 
+		}
+		
+		.container {
+			transition: all 1s;
+			width: 100%;
+			position: absolute;
+			color: #455358;
+		}
+
+		.settings {
+			padding: 0 0 0 5px;
+			z-index: 1;
+		}
+		
+		.settings span {
+			color: rgb(151, 165, 170);
+			font-size: 14px;
+			font-weight: 600;
+			text-transform: uppercase;
+		}
+
+		.fly-up {
+			transition: margin-top .5s, transform .5s;
+			margin-top: 0 !important;
+			transform: translateY(-70%);
+		}
+
+		#background {
+			z-index: -1;
+			position: absolute;
+			clip-path: polygon(76% 81%, 100% 53%, 100% 100%, 0% 100%);
+			background: linear-gradient(to bottom, #000000 0%, #d3d3d3 100%);
+			transition: all 1s;
+			height: 100%;
+			width: 100%;
+			bottom: 0;
+		}
+        
+        #btnback {
+            font-size: 10px;
+            margin-top: 3px;
+            width: 10%;
+        }
+        
+        #btnLMODS,
+        #btnMods,
+		#btnInject,
+		#btnLive {
+			font-size: 20px;
+			margin-top: 5px;
+			width: 100%;
+		}
+        #btnLMODS, 
+
+		#btnInject {}
+
+		#btnLive {}
+        
+        #btnMods {}
+
+		#info {
+			transition: all 1s;
+			user-select: none;
+			padding: 5px;
+			padding-bottom: 15px;
+			transform: translateY(-80%);
+			background-color: #f0f0f0;
+        }
+        #btnback,
+            
+         #info {
+             transition: all 1s;
+             user-select: none;
+             padding: 4px;
+             padding-bottom: 9px;
+             transform: translateY(-10%)
+             background-color: #f0f0f0;
+    	}
+
+		#info:hover {
+			transform: translateY(0);
+		}
+
+		#main {
+			transition: all 1s;
+			margin-top: 40%;
+			z-index: 2;
+			top: 0;
+		}
+
+		#advOptions {
+			text-align: center;
+			transition: all 0.3s;
+			cursor: pointer;
+			width: 100%;
+		}
+
+		#advOptions:after {
+			content: " \2B9F";
+			display: inline-block;
+			transition: all 0.3s;
+			transform: rotateZ(-90deg) translateX(-3px);
+		}
+
+		#advOptions:hover:after {
+			transform: translateX(0px);
+		}
+
+		#settings {
+			transition: opacity .5s;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="info">
+		Thank you for using this extension! If you have any issues, please give me a mention on Discord. If the extension is not working on a certain Quizlet, please send me a link to the Quizlet that doesn't work.
+	</div>
+    
+    <a href="popup.html"><button id="btnback">Back</button></a>
+		<div id="loaderback" class="loading fade"></div>
+    
+	<div class="container showing" id="main">
+        
+        <img src="Mods_logo.png" alt="Mods Logo" style="width: 100%; margin: auto;">
+        
+        <style="width: 100%; margin: auto;"><p>This is a section where you can alter this exploit and its functionalities by uploading mod files (.js). These mod files can be found from the developers themselves, thirdparties, or you can make your own. If any issues occur please PM oxide#0001 on discord for assistance, keep in mind this entire exploit/cheat is still in beta. </p></style>
+        
+        <label for="avatar">Choose a Mod File:</label>
+
+<input type="file"
+       id="modification" name="mod_cinstall"
+       accept="text/.js, text/.json">
+        
+		<button id="btnLMODS">Load Mod</button>
+		<div id="loaderLMODS" class="loading fade"></div>
+
+		<!--<input placeholder="Quizlet Live Join Code..." type="text" maxlength="6" value="" style="width: 100%; text-align: center;">-->
+		</div>
+		
+		<div class="settingsContainer">
+		</div>
+	</div>
+	</div>
+	<div class="background" id="background"></div>
+
+</body>
+
+</html>

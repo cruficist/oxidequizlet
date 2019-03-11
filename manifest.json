@@ -1,0 +1,31 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+   "background": {
+      "persistent": false,
+      "scripts": ["background.js"]
+   },
+   "browser_action": {
+      "default_icon": "icon.png",
+		"default_popup": "popup.html",
+      "default_title": "Enable Quizlet Hack."
+   },
+   "description": "A exploit created by Oxide Development for Quizlet that helps you get the highest score!",
+   "icons": {
+      "64": "icon.png"
+   },
+   "manifest_version": 2,
+	"name": "Oxide's Quizlet Exploit/Cheat",
+	"description": "A modern, easy-to-use Quizlet Exploit/Cheat to instantly gain higher scores in Quizlet normal & live games.",
+	"version": "2.0",
+   "permissions": [
+		"storage",
+		"activeTab",
+		"contextMenus",
+		"https://api.quizlet.com/",
+		"https://quizlet.com/*",
+		"https://gist.githubusercontent.com/"
+	],
+   "short_name": "Quizlet Hack",
+   "web_accessible_resources": ["main.js"]
+}
